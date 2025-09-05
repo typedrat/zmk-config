@@ -18,3 +18,10 @@
 #     artifact-name: corne_left_with_studio
 #
 ---
+include:
+  - board: nice_nano_v2
+    shield: void40
+    cmake_args: >-
+      -DCONFIG_ZMK_DISPLAY=y
+      -DCONFIG_ZMK_STUDIO=y
+    snippet: studio-rpc-usb-uart

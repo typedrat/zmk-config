@@ -1,0 +1,11 @@
+file_format: "1"
+id: void40
+name: VOID40
+type: shield
+url: https://github.com/victorlucachi/void40
+requires: [pro_micro]
+exposes: [i2c_oled]
+features:
+  - keys
+  - display
+  - studio
