@@ -1,0 +1,6 @@
+# Copyright (c) 2025 Alexis Williams
+# SPDX-License-Identifier: MIT
+
+config SHIELD_VOID40
+    def_bool $(shields_list_contains,void40)
+    select LVGL if ZMK_DISPLAY
