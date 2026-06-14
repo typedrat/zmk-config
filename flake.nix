@@ -25,6 +25,14 @@
         split = false;
         enableZmkStudio = true;
       };
+      photon = {
+        board = "photon";
+        shield = null;
+        zephyrDepsHash = "";
+        description = "CannonKeys Photon wireless keyboard";
+        split = false;
+        enableZmkStudio = true;
+      };
     };
 
     # Helper function to build a keyboard package
@@ -34,37 +42,43 @@
         then zmk-nix.legacyPackages.${system}.buildSplitKeyboard
         else zmk-nix.legacyPackages.${system}.buildKeyboard;
 
+      baseArgs = {
+        name = "${name}-firmware";
+
+        src = nixpkgs.lib.sourceFilesBySuffices self [
+          ".board"
+          ".cmake"
+          ".conf"
+          ".defconfig"
+          ".dts"
+          ".dtsi"
+          ".json"
+          ".keymap"
+          ".overlay"
+          ".shield"
+          ".yml"
+          "_defconfig"
+        ];
+
+        board = config.board;
+        zephyrDepsHash = config.zephyrDepsHash;
+        enableZmkStudio = config.enableZmkStudio;
+        snippets = ["zmk-usb-logging"];
+
+        meta = {
+          description = config.description;
+          license = nixpkgs.lib.licenses.mit;
+          platforms = nixpkgs.lib.platforms.all;
+        };
+      };
+
       firmware =
-        (buildFunction {
-          name = "${name}-firmware";
-
-          src = nixpkgs.lib.sourceFilesBySuffices self [
-            ".board"
-            ".cmake"
-            ".conf"
-            ".defconfig"
-            ".dts"
-            ".dtsi"
-            ".json"
-            ".keymap"
-            ".overlay"
-            ".shield"
-            ".yml"
-            "_defconfig"
-          ];
-
-          board = config.board;
-          shield = config.shield;
-          zephyrDepsHash = config.zephyrDepsHash;
-          enableZmkStudio = config.enableZmkStudio;
-          snippets = ["zmk-usb-logging"];
-
-          meta = {
-            description = config.description;
-            license = nixpkgs.lib.licenses.mit;
-            platforms = nixpkgs.lib.platforms.all;
-          };
-        }).overrideAttrs (old: {
+        (buildFunction (
+          baseArgs
+          // nixpkgs.lib.optionalAttrs (config.shield != null) {
+            shield = config.shield;
+          }
+        )).overrideAttrs (old: {
           nativeBuildInputs = (old.nativeBuildInputs or []) ++ [nixpkgs.legacyPackages.${system}.dtc];
         });
 
