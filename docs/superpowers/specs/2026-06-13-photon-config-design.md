@@ -125,6 +125,8 @@ both:
 
 Adjust the `upload-artifact` step's `path` accordingly (both `result*` symlinks,
 or drop artifact upload to the default). The `flake check` step is unchanged.
+Add the named out-links (`result-void40`, `result-photon`) to `.gitignore`,
+which currently only ignores `result`.
 
 ## Auto-Update
 
