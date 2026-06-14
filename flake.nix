@@ -15,12 +15,17 @@
   }: let
     forAllSystems = nixpkgs.lib.genAttrs (nixpkgs.lib.attrNames zmk-nix.packages);
 
+    # All keyboards share one west manifest (config/west.yml), so they fetch
+    # the identical Zephyr dependency set and therefore share one deps hash.
+    # The `nix run .#update` workflow rewrites this single literal.
+    zephyrDepsHash = "sha256-XyPy8jViJZ/toO+4zo3DAQChXY1aQqUVkSqKr8RcsVI=";
+
     # Define keyboard configurations
     keyboards = {
       void40 = {
         board = "nice_nano_v2";
         shield = "void40";
-        zephyrDepsHash = "sha256-79/rYCtUDlC0K4ARO9MSEaCcI1RQSsv7MCeayVZSwtQ=";
+        inherit zephyrDepsHash;
         description = "VOID40 custom hand-wired keyboard";
         split = false;
         enableZmkStudio = true;
@@ -28,7 +33,7 @@
       photon = {
         board = "photon";
         shield = null;
-        zephyrDepsHash = "";
+        inherit zephyrDepsHash;
         description = "CannonKeys Photon wireless keyboard";
         split = false;
         enableZmkStudio = true;
