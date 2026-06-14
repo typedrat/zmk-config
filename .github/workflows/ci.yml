@@ -22,7 +22,7 @@ jobs:
 
       - run: nix -vL --show-trace build .#photon --out-link result-photon
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: zmk_firmware
           path: |
