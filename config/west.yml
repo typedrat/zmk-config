@@ -1,34 +1,22 @@
 manifest:
   remotes:
-    - name: zmkfirmware
-      url-base: https://github.com/zmkfirmware
+    - name: awkannan
+      url-base: https://github.com/awkannan
+    - name: cannonkeys
+      url-base: https://github.com/cannonkeys
   projects:
     - name: zmk
-      remote: zmkfirmware
-      revision: 0b5a103c187ad337b9f50d824667866c4d7252e1 # main
+      remote: awkannan
+      revision: 312e4b0a056bcea9615d1355e84a5d1b2927f6ba # develop
       import: app/west.yml
-    - name: zephyr
-      remote: zmkfirmware
-      revision: dacab4875df72109b96cc8977547a0dc04875bcd # v3.5.0+zmk-fixes
-      import:
-        name-blocklist:
-          - ci-tools
-          - hal_altera
-          - hal_cypress
-          - hal_infineon
-          - hal_microchip
-          - hal_nxp
-          - hal_openisa
-          - hal_silabs
-          - hal_xtensa
-          - hal_st
-          - hal_ti
-          - loramac-node
-          - mcuboot
-          - mcumgr
-          - net-tools
-          - openthread
-          - edtt
-          - trusted-firmware-m
+    - name: zmk-gpio-behavior
+      remote: awkannan
+      revision: 174a055e3c991b28942be71706265bfab4672dd6 # main
+    - name: zmk-smart-rgbled-widget
+      remote: awkannan
+      revision: 8569005c9444eaf32423546504b77fc6b7fa3d20 # main
+    - name: zmk-cannonkeys-keyboards
+      remote: cannonkeys
+      revision: 0b6f02193686573e78a7cb1d6fd768bcf53241d0 # main
   self:
     path: config
