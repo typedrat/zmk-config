@@ -22,7 +22,11 @@ jobs:
 
       - uses: DeterminateSystems/nix-installer-action@v20
 
-      - run: nix -vL run --show-trace .#update
+      # Both keyboards share config/west.yml and a single zephyrDepsHash, so
+      # running the updater for one keyboard advances the pins + hash for both.
+      - run: nix -vL run --show-trace .#void40.update
+        env:
+          UPDATE_NIX_ATTR_PATH: void40
 
       - id: create-pr
         uses: peter-evans/create-pull-request@v7
