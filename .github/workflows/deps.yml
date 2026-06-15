@@ -20,7 +20,7 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
-      - uses: DeterminateSystems/nix-installer-action@v20
+      - uses: DeterminateSystems/nix-installer-action@v22
 
       # Both keyboards share config/west.yml and a single zephyrDepsHash, so
       # running the updater for one keyboard advances the pins + hash for both.
